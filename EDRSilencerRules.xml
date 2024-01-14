@@ -1,0 +1,34 @@
+<!-- Modify it at your will. -->
+<var name="hashes">12f0e233ce56c25842acbdef7760e672|550dcda76586b9eecfdede1c506a91a9|179c0d480211dae4a9d42f0be67d68cd</var>
+
+<!-- Syscheck configuration should be 
+<syscheck>
+  <directories check_all="yes" realtime="yes" tags="EDRSilencer" restrict="EDRSilencer">C:\Users</directories>
+ </syscheck>
+ -->
+
+<group name="syscheck, EDRSilencer,">
+
+   <!-- Detection based on the hashes for all files-->   
+   <rule id="130000" level="8">
+    <if_sid>550,553,554,555</if_sid>
+    <field name="md5">$hashes</field>
+    <description>EdRSilencer alert - The $(file) matches one of the known hashes</description>
+   </rule>
+   
+  <!-- Detection based on naming -->   
+   <rule id="130001" level="8">
+    <if_sid>550,553,554,555</if_sid>
+    <field name="tag">EDRSilencer</field>
+    <description>EdRSilencer alert - The $(file) has been detected</description>
+   </rule>
+   
+   <!-- Detection based on hashes AND naming  -->   
+   <rule id="130002" level="12">
+    <if_sid>130000</if_sid>
+    <field name="tag">EDRSilencer</field>
+    <description>EdRSilencer alert - The $(file) has been detected</description>
+   </rule>
+
+ 
+</group>
