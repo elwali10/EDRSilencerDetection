@@ -13,22 +13,28 @@
    <rule id="130000" level="8">
     <if_sid>550,553,554,555</if_sid>
     <field name="md5">$hashes</field>
-    <description>EdRSilencer alert - The $(file) matches one of the known hashes</description>
+    <description>EdRSilencer Alert - The $(file) matches one of the known hashes</description>
    </rule>
    
   <!-- Detection based on naming -->   
    <rule id="130001" level="8">
     <if_sid>550,553,554,555</if_sid>
     <field name="tag">EDRSilencer</field>
-    <description>EdRSilencer alert - The $(file) has been detected</description>
+    <description>EdRSilencer Alert - The $(file) has been detected</description>
    </rule>
    
    <!-- Detection based on hashes AND naming  -->   
    <rule id="130002" level="12">
     <if_sid>130000</if_sid>
     <field name="tag">EDRSilencer</field>
-    <description>EdRSilencer alert - The $(file) has been detected</description>
+    <description>EdRSilencer Alert - The $(file) has been detected</description>
    </rule>
 
+  <!-- Detection rule Part 2 with Yara -->
+  <rule id="130010" level="12">
+    <if_sid>530</if_sid>
+    <match>ossec: output: 'EDRSilencer': edr_silencer_hacktool</match>
+    <description>EDRSilencer Alert</description>
+  </rule>
  
 </group>
